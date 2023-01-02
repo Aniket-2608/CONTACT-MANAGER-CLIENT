@@ -1,6 +1,15 @@
 import './login.css'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import {Link} from 'react-router-dom'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../../context/authcontext';
+
+
+
 const Login=()=>{
+ const { loginUser } = useContext(AuthContext)
   const [credentials, setCredentials]=useState({email:"" ,password:""});
   const handleChange=(event)=>{
     const {name,value}=event.target;
@@ -9,10 +18,18 @@ const Login=()=>{
   
   const handleSubmit=(event)=>{
     event.preventDefault();
+
+    if(!credentials.email || !credentials.password){
+           toast.error("Please enter all required fields !");
+           return;
+    }
+
+    loginUser(credentials);
   };
 
     return(
          <>
+         <ToastContainer autoclose={2000} />
          <section className='main'>
             
             <form onSubmit={handleSubmit}>
@@ -20,9 +37,9 @@ const Login=()=>{
             <img src={require("../images/logo.png")} alt="log"/>
             </section>
             <p>
-            Enter your credentials to acc<button>
-              Sign Up
-            </button>
+            Enter your credentials to acc
+            </p>
+           
             <section className="email">
               <input type="email"  placeholder="Email" name='email' value={credentials.email} onChange={handleChange} required/>
             </section>
