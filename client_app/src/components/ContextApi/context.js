@@ -11,7 +11,7 @@ export const ContextProvider=(props)=>{
     const nav=useNavigate();
 
     const userSignIn= (loginData)=>{
-        axios.post("http://localhost:3000/login",loginData)
+        axios.post("https://contact-manager-server-asi1.onrender.com/login",loginData)
         .then((res)=>{
             const token=res.data.token;
             localStorage.setItem("token",token);
@@ -33,7 +33,7 @@ export const ContextProvider=(props)=>{
     };
 
     const postContacts= async (ContactsData)=>{
-        return await axios.post("http://localhost:3000/create",ContactsData,config)
+        return await axios.post("https://contact-manager-server-asi1.onrender.com/create",ContactsData,config)
         .then((res)=>console.log(res))
         .catch((err)=>{
             console.log(err.response.data.error);
@@ -41,7 +41,7 @@ export const ContextProvider=(props)=>{
     };
 
     const fetchContacts=()=>{
-        axios.get("http://localhost:3000/alluser",config)
+        axios.get("https://contact-manager-server-asi1.onrender.com/alluser",config)
         .then((res)=>{
             const data=res.data.users[0].contact;
             setContacts(data);
@@ -55,7 +55,7 @@ export const ContextProvider=(props)=>{
 
     const userSignUp=(userData)=>{
         try{
-            axios.post("http://localhost:3000/register",userData)
+            axios.post("https://contact-manager-server-asi1.onrender.com/register",userData)
             .then((res)=>{
                 nav("/");
                 window.alert("Registration Successful")
@@ -67,7 +67,7 @@ export const ContextProvider=(props)=>{
     };
 
     const deleteContacts=(userId)=>{
-        axios.delete(`http://localhost:3000/delete/${userId}`,config)
+        axios.delete(`https://contact-manager-server-asi1.onrender.com/delete/${userId}`,config)
         .then((res)=>console.log(res))
         .catch((e)=>console.log(e));
     };
